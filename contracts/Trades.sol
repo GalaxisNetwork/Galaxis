@@ -8,9 +8,10 @@ contract Trades {
         uint startDate;
         uint actualEndDate;
         uint maxLength;
-        uint value;
-        string pair;
-        string exchange;
+        uint weiValueGive;
+        address tokenToGet;
+        uint tokenAtomValueToGet;
+        address exchange;
         int profitPercent;
     }
     
