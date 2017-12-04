@@ -22,5 +22,19 @@ contract Trades {
     
     MinHeap.Heap internal expirationsSorted; /* expiration dates sorted in a heap*/
     
+    function openTrade(){
+        
+    }
+    
+    function closeExpiredTrade(){
+        
+    }
+    
+    function closeTrade(){
+        
+    }
+    
+    
+    
     
 }
