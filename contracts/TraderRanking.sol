@@ -3,8 +3,12 @@ pragma solidity ^0.4.18;
 
 contract TraderRanking {
     
-    mapping (address => int) score;
-    mapping (address => uint8) negativeStreak; //number of last consecutive negative trades (0 if last trade was positive)
+    mapping (address => TraderStats) Traders;
+    
+    struct TraderStats{
+        int score;
+        uint8 negativeStreak; //number of last consecutive negative trades (0 if last trade was positive)
+    }
     
     uint summaryOfAllScores;
 
@@ -14,20 +18,20 @@ contract TraderRanking {
     
     function calculateScore(address trader, int lastTradeProfit) internal { //lastTradeProfit can be nagative
         if(lastTradeProfit < 0){
-            negativeStreak[trader] += 1;
+            Traders[trader].negativeStreak += 1;
         } else {
-            negativeStreak[trader] = 0;
+            Traders[trader].negativeStreak = 0;
         }
-        score[trader] += lastTradeProfit * (negativeStreak[trader] + 1);
+        Traders[trader].score += lastTradeProfit * (Traders[trader].negativeStreak + 1);
     }
     
     function dismissTrader(address trader) private {
-        delete score[trader];
-        delete negativeStreak[trader];
+        delete Traders[trader].score;
+        delete Traders[trader].negativeStreak;
     }
     
     function addTrader(address trader) private {
-        score[trader] = 1;
+        Traders[trader].score = 1;
         summaryOfAllScores += 1;
     }
     
